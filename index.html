@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop Layout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #b288f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            overflow: hidden;
+        }
+        
+        .desktop {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .folder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            width: 80px;
+        }
+        
+        .icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .vinwonders-icon {
+            background-color: #ffe366;
+            color: #9370db;
+            border-radius: 8px;
+        }
+        
+        .entertainment-icon {
+            background-color: #5bb3ff;
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .deadline-icon {
+            background-color: #ff7b7b;
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .explore-icon {
+            background-color: #7bff8e;
+            color: #1e6b24;
+            border-radius: 8px;
+        }
+        
+        .resort-icon {
+            background-color: #ffb366;
+            color: #8d4d00;
+            border-radius: 8px;
+        }
+        
+        .food-icon {
+            background-color: #e266ff;
+            color: white;
+            border-radius: 8px;
+        }
+        
+        .label {
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            word-wrap: break-word;
+            width: 100%;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .highlight {
+            color: yellow;
+            font-weight: bolder;
+        }
+        
+        .popup-window {
+            position: absolute;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            height: 250px;
+            padding: 10px;
+            display: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+        
+        .window-header {
+            background-color: #007bff;
+            color: white;
+            padding: 8px;
+            margin: -10px -10px 10px -10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .window-content {
+            height: calc(100% - 30px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .window-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .final-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .final-popup h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn-yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-no {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <div class="folder" id="vinwonders-folder">
+            <div class="icon vinwonders-icon">
+                <i class="fas fa-ticket-alt"></i>
+            </div>
+            <div class="label"><span class="highlight">Hạnh phúc tại VinWonders</span></div>
+        </div>
+        
+        <div class="folder">
+            <div class="icon entertainment-icon">
+                <i class="fas fa-gamepad"></i>
+            </div>
+            <div class="label">Giải trí</div>
+        </div>
+        
+        <div class="folder">
+            <div class="icon deadline-icon">
+                <i class="fas fa-calendar-times"></i>
+            </div>
+            <div class="label">Deadline</div>
+        </div>
+        
+        <div class="folder">
+            <div class="icon explore-icon">
+                <i class="fas fa-compass"></i>
+            </div>
+            <div class="label">Khám phá</div>
+        </div>
+        
+        <div class="folder">
+            <div class="icon resort-icon">
+                <i class="fas fa-umbrella-beach"></i>
+            </div>
+            <div class="label">Nghỉ dưỡng</div>
+        </div>
+        
+        <div class="folder">
+            <div class="icon food-icon">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <div class="label">Ăn uống</div>
+        </div>
+    </div>
+
+    <!-- Final popup -->
+    <div class="final-popup" id="final-popup">
+        <h2>Wanna Join?</h2>
+        <div class="btn-container">
+            <button class="btn btn-yes">Yes</button>
+            <button class="btn btn-no">No</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const vinwondersFolder = document.getElementById('vinwonders-folder');
+            const finalPopup = document.getElementById('final-popup');
+            
+            // Array of placeholder image URLs
+            const imageUrls = Array(20).fill().map((_, i) => `/api/placeholder/${300 + i}/${250 + i}`);
+            
+            // Create popup windows in advance
+            const popupWindows = [];
+            
+            for (let i = 0; i < 20; i++) {
+                const popup = document.createElement('div');
+                popup.className = 'popup-window';
+                popup.style.top = `${Math.random() * 50}%`;
+                popup.style.left = `${Math.random() * 50}%`;
+                
+                const header = document.createElement('div');
+                header.className = 'window-header';
+                header.innerText = `VinWonders Image ${i+1}`;
+                
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'close-btn';
+                closeBtn.innerHTML = '&times;';
+                closeBtn.onclick = function() {
+                    popup.style.display = 'none';
+                };
+                
+                header.appendChild(closeBtn);
+                popup.appendChild(header);
+                
+                const content = document.createElement('div');
+                content.className = 'window-content';
+                
+                const img = document.createElement('img');
+                img.src = imageUrls[i];
+                img.alt = `VinWonders Image ${i+1}`;
+                
+                content.appendChild(img);
+                popup.appendChild(content);
+                
+                document.body.appendChild(popup);
+                popupWindows.push(popup);
+                
+                // Make window draggable
+                makeDraggable(popup, header);
+            }
+            
+            // Function to make an element draggable
+            function makeDraggable(element, handle) {
+                let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                
+                handle.onmousedown = dragMouseDown;
+                
+                function dragMouseDown(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // Get the mouse cursor position at startup
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    // Call a function whenever the cursor moves
+                    document.onmousemove = elementDrag;
+                }
+                
+                function elementDrag(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // Calculate the new cursor position
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    // Set the element's new position
+                    element.style.top = (element.offsetTop - pos2) + "px";
+                    element.style.left = (element.offsetLeft - pos1) + "px";
+                }
+                
+                function closeDragElement() {
+                    // Stop moving when mouse button is released
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+            }
+            
+            // Handle click on VinWonders folder
+            vinwondersFolder.addEventListener('click', function() {
+                // Show popup windows with delay between each
+                popupWindows.forEach((popup, index) => {
+                    setTimeout(() => {
+                        popup.style.display = 'block';
+                    }, index * 100);
+                });
+                
+                // Hide all popups and show the final one after a delay
+                setTimeout(() => {
+                    popupWindows.forEach(popup => {
+                        popup.style.display = 'none';
+                    });
+                    
+                    finalPopup.style.display = 'block';
+                }, 3000);
+            });
+            
+            // Handle Yes/No buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    finalPopup.style.display = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
